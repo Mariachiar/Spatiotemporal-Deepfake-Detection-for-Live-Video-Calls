@@ -1,0 +1,32 @@
+{
+  "datasets": [
+    {
+      "name": "celebdf",
+      "list_path": "raw_datasets/List_fixed.txt",
+      "dataset_root": null
+    }
+  ],
+  "pool_methods": [
+    "median",
+    "mean",
+    "logit_median",
+    "topk",
+    "topk_median",
+    "percentile",
+    "trimmed_mean",
+    "adaptive"
+  ],
+  "base_args": {
+    "--cfg_path": "i3d_ori.yaml",
+    "--ckpt_path": "altfreezing/checkpoints/model.pth",
+    "--optimal_threshold": "0.4",
+    "--max_frame": "400",
+    "--stride": "52",
+    "--batch_clips": "8",
+    "--disable_penalty": "",
+    "--amp": "",
+    "--channels_last": "",
+    "--q_weighting": ""
+  },
+  "fpr_np_target": 0.01
+}

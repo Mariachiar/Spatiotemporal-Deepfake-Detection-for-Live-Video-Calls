@@ -1,0 +1,2 @@
+videos,accuracy,auc_roc,pr_auc,f1,tp,tn,fp,fn,confusion_matrix,mean_fps,mean_latency_ms_clip,model_size
+2000,0.946000,0.983737,0.988235,0.948027,985,907,93,15,"[[907, 93], [15, 985]]",10.054,14903.914,104.2MB

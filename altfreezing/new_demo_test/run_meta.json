@@ -1,0 +1,26 @@
+{
+  "datasets": [
+    {
+      "name": "ffpp_faceshifter_mixed",
+      "list_path": "lists/faceshifter_with_real.txt",
+      "dataset_root": null
+    }
+  ],
+  "pool_methods": [
+    "trimmed_mean",
+    "adaptive"
+  ],
+  "base_args": {
+    "--cfg_path": "i3d_ori.yaml",
+    "--ckpt_path": "altfreezing/checkpoints/model.pth",
+    "--optimal_threshold": "0.4",
+    "--max_frame": "400",
+    "--stride": "52",
+    "--batch_clips": "8",
+    "--disable_penalty": "",
+    "--amp": "",
+    "--channels_last": "",
+    "--q_weighting": ""
+  },
+  "fpr_np_target": 0.01
+}

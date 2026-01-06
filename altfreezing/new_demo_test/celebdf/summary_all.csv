@@ -1,0 +1,9 @@
+dataset,pool_method,threshold_type,threshold,videos,accuracy,auc_roc,pr_auc,f1,tpr,fpr,ppv,npv,tp,tn,fp,fn,mean_fps,mean_latency_ms_clip,elapsed_s_test2
+celebdf,median,from_test2,0.400000,518,0.720077,0.863533,0.918274,0.747826,nan,nan,nan,nan,215,158,20,125,10.226,11305.508,13011.56
+celebdf,mean,from_test2,0.400000,518,0.764479,0.878288,0.925640,0.798013,nan,nan,nan,nan,241,155,23,99,10.470,11098.038,12685.66
+celebdf,logit_median,from_test2,0.400000,518,0.720077,0.864764,0.919208,0.747826,nan,nan,nan,nan,215,158,20,125,13.299,9702.948,10767.38
+celebdf,topk,from_test2,0.400000,518,0.822394,0.872728,0.922262,0.868946,nan,nan,nan,nan,305,121,57,35,20.430,5639.976,6358.27
+celebdf,topk_median,from_test2,0.400000,518,0.820463,0.875413,0.922764,0.864629,nan,nan,nan,nan,297,128,50,43,20.396,5441.563,6291.84
+celebdf,percentile,from_test2,0.400000,518,0.805019,0.868184,0.920462,0.847201,nan,nan,nan,nan,280,137,41,60,20.780,5136.112,6072.57
+celebdf,trimmed_mean,from_test2,0.400000,518,0.739382,0.872108,0.923615,0.770798,nan,nan,nan,nan,227,156,22,113,19.178,5602.149,6598.32
+celebdf,adaptive,from_test2,0.400000,518,0.720077,0.854676,0.914952,0.747826,nan,nan,nan,nan,215,158,20,125,20.339,5406.045,6264.90

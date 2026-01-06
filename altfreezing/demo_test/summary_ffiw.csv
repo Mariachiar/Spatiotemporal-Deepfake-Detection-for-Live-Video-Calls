@@ -1,0 +1,2 @@
+videos,accuracy,auc_roc,pr_auc,f1,tp,tn,fp,fn,confusion_matrix,avg_t_total_s,avg_t_detect_s,avg_t_aligninfer_s,p50_fps_end2end,p95_fps_end2end,avg_fps_preproc,avg_fps_model,avg_cpu_util,avg_gpu_util,avg_gpu_mem_GB,max_gpu_mem_GB,avg_gpu_mem_peak_GB,total_frames,total_clips
+1000,0.556000,0.671620,0.639802,0.690377,495,61,439,5,"[[61, 439], [5, 495]]",75.914545,42.601019,33.099174,3.617,12.673,107.308,9.270,nan,nan,nan,nan,1.981,255145,293820

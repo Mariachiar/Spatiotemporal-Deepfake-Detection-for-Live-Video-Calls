@@ -1,0 +1,2 @@
+seed,n_pool,n_real,n_fake,threshold,auc_mean,auc_sd,ap_mean,ap_sd,f1_macro@tau_mean,f1_macro@tau_sd,precision_macro@tau_mean,precision_macro@tau_sd,recall_macro@tau_mean,recall_macro@tau_sd
+43,1000,500,500,0.362,0.66666,0.0451900210223452,0.6637612423575575,0.06117688841632728,0.6261769865548981,0.04794443504118813,0.6399065171859911,0.047224300366954436,0.632,0.0449444101084885
