@@ -1,0 +1,98 @@
+ python3 - <<'PY'
+> import json
+> from pathlib import Path, PurePath
+> from collections import defaultdict
+>
+> JSON = "splitF/combined/phase2_ffpp+celebdf.json"
+>
+> REAL_TOKENS = {"real","__orig__","orig","original","pristine","gt","celeb-real","youtube-real"}
+> SKIP = {"datasets","dataset","data","splitf","splits","combined"}
+>
+> def contains_real_token(p: PurePath):
+>     return any(seg.lower() in REAL_TOKENS for seg in p.parts)
+>
+> def tech_from_path(p: PurePath) -> str:
+>     if contains_real_token(p): return "REAL"
+>     parts = list(p.parts)
+>     # caso tipico: .../<tech>/<video>/track_*/clip_*
+>     for i, seg in enumerate(parts):
+>         if seg.lower().startswith("track_"):
+>             if i-2 >= 0:
+>                 t = parts[i-2]
+>                 return "REAL" if t.lower() in REAL_TOKENS else t
+>     # fallback: .../<tech>/.../clip_*
+>     for i, seg in enumerate(parts):
+>         if seg.lower().startswith("clip"):
+>             if i-3 >= 0:
+>                 t = parts[i-3]
+>                 return "REAL" if t.lower() in REAL_TOKENS else t
+>     for seg in parts:
+>         if seg.lower() not in SKIP:
+>             return "REAL" if seg.lower() in REAL_TOKENS else seg
+>     return "UNKNOWN"
+>
+> def video_track_from_path(p: PurePath):
+>     parts = list(p.parts)
+>     i_track = next((i for i,s in enumerate(parts) if s.lower().startswith("track_")), None)
+>     if i_track is None:
+>         # fallback robusto
+>         track_id = parts[-2] if len(parts) >= 2 else "track_unknown"
+>         video_id = parts[-3] if len(parts) >= 3 else track_id
+>         return video_id, track_id
+>     track_id = parts[i_track]
+>     # video = segmenti tra tecnica e track; se vuoto → usa track_id
+>     # stima indice tecnica come due livelli prima del track
+>     i_tech = i_track - 2 if i_track - 2 >= 0 else None
+>     if i_tech is not None and i_tech < i_track:
+>         between = parts[i_tech+1:i_track]
+>         video_id = "/".join(between) if between else track_id
+>     else:
+>         video_id = track_id
+>     return video_id, track_id
+>
+> with open(JSON, "r") as f:
+>     obj = json.load(f)
+> if "splits" in obj and isinstance(obj["splits"], dict):
+>     splits = obj["splits"]
+> else:
+>     splits = obj  # già flat per split
+>
+> for split, lst in splits.items():
+>     per_tech_videos = defaultdict(set)
+>     per_tech_tracks = defaultdict(set)
+>     per_tech_clips  = defaultdict(int)
+>
+>     for p_str in lst:
+>         p = PurePath(p_str)
+>         tech = tech_from_path(p)
+>         vid, trk = video_track_from_path(p)
+>         per_tech_videos[tech].add(vid)
+>         per_tech_tracks[tech].add((vid, trk))
+>         per_tech_clips[tech] += 1  # ogni riga ~ 1 clip_dir
+>
+>     print(f"\n== {split.upper()} ==")
+>     header = f"{'technique':20s} {'videos':>8s} {'tracks':>8s} {'clip_dir':>10s}   note"
+>     print(header)
+>     print("-"*len(header))
+>     for tech in sorted(per_tech_clips.keys(), key=lambda t: (t!='REAL', t.lower())):
+>         v = len(per_tech_videos[tech])
+>         t = len(per_tech_tracks[tech])
+>         c = per_tech_clips[tech]
+>         note = []
+>         if not (c >= t >= v):
+>             note.append("CHECK: c>=t>=v violated")
+>         print(f"{tech:20s} {v:8d} {t:8d} {c:10d}   {'; '.join(note)}")
+> PY
+
+
+== TEST ==
+technique              videos   tracks   clip_dir   note
+--------------------------------------------------------
+REAL                     1889     2057      25968
+Celeb-synthesis          5639     5943      77519
+DeepFakeDetection         991     1277      19917
+Deepfakes                 334      354       4293
+Face2Face                 272      310       3429
+FaceShifter              1000     1083      12923
+FaceSwap                  999     1058      10203
+NeuralTextures            999     1061      10215

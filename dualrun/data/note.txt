@@ -1,0 +1,15 @@
+Motiva così, in modo tecnico e sufficiente:
+
+* **Allineamento con i distretti espressivi.** Le micro-espressioni rilevanti insorgono su occhi, sopracciglia e labbra. I 66 LMK coprono proprio questi distretti e scartano mandibola/guance, poco informative per variazioni rapide.
+
+* **Riduzione del rumore geometrico.** La mandibola del 68-set varia molto con posa e apertura bocca. Escluderla riduce varianza non legata all’emozione, stabilizza la z-norm e migliora il SNR del segnale AU/LMK.
+
+* **Coerenza con le AU.** Le 36 AU mappano soprattutto su orbitali e periorali. Tenere 66 punti focalizzati massimizza la correlazione AU↔LMK e semplifica l’apprendimento multimodale.
+
+* **Efficienza computazionale.** 66×2=132 dim contro 68×2=136. Meno feature → backbone più leggero, meno overfitting e latenza inferiore, utile in streaming T=8.
+
+* **Robustezza a occlusioni e tracking instabile.** Gli estremi mandibolari degradano spesso con blur, barba, mani. Rimuoverli riduce dropout e outlier.
+
+* **Normalizzazione più stabile.** I 3 punti di riferimento inclusi (naso/angoli bocca) facilitano centratura/scala e rendono la finestra T meno sensibile a micro-movimenti globali.
+
+Chiusura: il modello è addestrato e calibrato su **66 LMK**; passare a **68** richiederebbe rigenerare le feature, ricalcolare le norm-stats e **riaddestrare**.

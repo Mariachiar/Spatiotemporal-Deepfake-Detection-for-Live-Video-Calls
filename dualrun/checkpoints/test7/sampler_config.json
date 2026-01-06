@@ -1,0 +1,6 @@
+{
+  "mode": "balanced_per_tech_base",
+  "epoch_samples": 120000,
+  "boosts": {},
+  "min_quota": 0
+}

@@ -1,0 +1,12 @@
+{
+  "modes": [
+    "mean",
+    "median",
+    "logit_median",
+    "topk",
+    "topk_median",
+    "percentile",
+    "trimmed_mean",
+    "adaptive"
+  ]
+}
